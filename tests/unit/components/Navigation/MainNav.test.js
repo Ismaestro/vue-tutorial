@@ -1,17 +1,22 @@
 import MainNav from "@/components/Navigation/MainNav";
-import { shallowMount } from "@vue/test-utils";
+import { shallowMount, RouterLinkStub } from "@vue/test-utils";
 
 describe("MainNav", () => {
+  const createConfig = () => ({
+    global: {
+      stubs: {
+        "router-link": RouterLinkStub,
+      },
+    },
+  });
+
   it("displays company name", async () => {
-    const wrapper = shallowMount(MainNav);
-    await wrapper.setData({
-      company: "Super Corp",
-    });
-    expect(wrapper.text()).toMatch("Super Corp");
+    const wrapper = shallowMount(MainNav, createConfig());
+    expect(wrapper.text()).toMatch("Bobo Careers");
   });
 
   it("displays menu items for navigation", async () => {
-    const wrapper = shallowMount(MainNav);
+    const wrapper = shallowMount(MainNav, createConfig());
     const navigationMenuItems = wrapper.findAll(
       "[data-test='main-nav-list-item']"
     );
@@ -28,7 +33,7 @@ describe("MainNav", () => {
 
   describe("when user is logged out", () => {
     it("prompts user to sign in", async () => {
-      const wrapper = shallowMount(MainNav);
+      const wrapper = shallowMount(MainNav, createConfig());
 
       const loginButton = wrapper.find("[data-test='login-button']");
       expect(loginButton.exists()).toBe(true);
@@ -37,7 +42,13 @@ describe("MainNav", () => {
 
   describe("when user is logs in", () => {
     it("displays user profile image", async () => {
-      const wrapper = shallowMount(MainNav);
+      const wrapper = shallowMount(MainNav, {
+        global: {
+          stubs: {
+            "router-link": RouterLinkStub,
+          },
+        },
+      });
 
       let profileImage = wrapper.find("[data-test='profile-image']");
       expect(profileImage.exists()).toBe(false);
@@ -50,7 +61,13 @@ describe("MainNav", () => {
     });
 
     it("displays sub navigation with additional information", async () => {
-      const wrapper = shallowMount(MainNav);
+      const wrapper = shallowMount(MainNav, {
+        global: {
+          stubs: {
+            "router-link": RouterLinkStub,
+          },
+        },
+      });
       let subnavMenu = wrapper.find("[data-test='subnav-menu']");
       expect(subnavMenu.exists()).toBe(false);
 

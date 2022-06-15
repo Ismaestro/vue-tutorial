@@ -9,11 +9,15 @@ const routes = [
   },
   {
     path: "/jobs/results",
-    name: "JobResults",
+    name: "JobResultsRoute",
     component: () =>
-      import(
-        /* webpackChunkName: "jobs-results" */ "../views/JobResultsView.vue"
-      ),
+      import(/* webpackChunkName: "jobs" */ "../views/JobResultsView.vue"),
+  },
+  {
+    path: "/jobs/results/:id",
+    name: "JobListingRoute",
+    component: () =>
+      import(/* webpackChunkName: "jobs" */ "../views/JobView.vue"),
   },
 ];
 

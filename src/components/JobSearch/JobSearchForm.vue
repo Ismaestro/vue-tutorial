@@ -9,13 +9,18 @@
       border border-solid border-brand-gray-3
       rounded-3xl
     "
+    @submit.prevent="searchForJobs"
   >
     <font-awesome-icon :icon="['fas', 'search']" class="ml-4 mr-3" />
 
     <div class="flex flex-nowrap flex-1 h-full text-base font-light">
       <div class="relative flex items-center flex-1 h-full pr-3">
         <label class="absolute left-0 -top-10">Role</label>
-        <text-input v-model="role" placeholder="Software Engineer" />
+        <text-input
+          v-model="role"
+          placeholder="Software Engineer"
+          data-test="role-input"
+        />
       </div>
 
       <span
@@ -32,10 +37,19 @@
 
       <div class="relative flex items-center flex-1 h-full pl-3">
         <label class="absolute left-0 -top-10">Where?</label>
-        <text-input v-model="location" placeholder="Los angeles" />
+        <text-input
+          v-model="location"
+          placeholder="Los angeles"
+          data-test="location-input"
+        />
       </div>
     </div>
-    <action-button text="Search" type="secondary" class="rounded-r-3xl" />
+    <action-button
+      text="Search"
+      type="secondary"
+      class="rounded-r-3xl"
+      data-test="form-submit-button"
+    />
   </form>
 </template>
 
@@ -55,6 +69,13 @@ export default {
       location: "",
     };
   },
-  methods: {},
+  methods: {
+    searchForJobs() {
+      this.$router.push({
+        name: "JobResultsRoute",
+        query: { role: this.role, location: this.location },
+      });
+    },
+  },
 };
 </script>
