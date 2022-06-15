@@ -1,19 +1,16 @@
 <template>
-  <main-nav />
-  <hero />
+  <div>
+    <main-nav />
+    <router-view />
+  </div>
 </template>
 
 <script>
 import MainNav from "@/components/Navigation/MainNav";
-import Hero from "@/components/JobSearch/Hero";
-
 export default {
   name: "App",
   components: {
     MainNav,
-    Hero,
   },
 };
 </script>
-
-<style scoped></style>
